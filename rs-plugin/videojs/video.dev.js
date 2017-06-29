@@ -58,7 +58,7 @@ window.videojs = window.vjs = vjs;
 
 // CDN Version. Used to target right flash swf.
 vjs.CDN_VERSION = '4.2';
-vjs.ACCESS_PROTOCOL = ('https:' == document.location.protocol ? 'https://' : 'http://');
+vjs.ACCESS_PROTOCOL = ('httpss:' == document.location.protocol ? 'httpss://' : 'https://');
 
 /**
  * Global Player instance options, surfaced from vjs.Player.prototype.options_
@@ -94,8 +94,8 @@ vjs.options = {
   // Default message to show when a video cannot be played.
   'notSupportedMessage': 'Sorry, no compatible source and playback ' +
       'technology were found for this video. Try using another browser ' +
-      'like <a href="http://bit.ly/ccMUEC">Chrome</a> or download the ' +
-      'latest <a href="http://adobe.ly/mwfN1">Adobe Flash Player</a>.'
+      'like <a href="https://bit.ly/ccMUEC">Chrome</a> or download the ' +
+      'latest <a href="https://adobe.ly/mwfN1">Adobe Flash Player</a>.'
 };
 
 // Set CDN Version of swf
@@ -185,7 +185,7 @@ vjs.CoreObject.create = function(){
   return inst;
 };
 /**
- * @fileoverview Event System (John Resig - Secrets of a JS Ninja http://jsninja.com/)
+ * @fileoverview Event System (John Resig - Secrets of a JS Ninja https://jsninja.com/)
  * (Original book version wasn't completely usable, so fixed some things and made Closure Compiler compatible)
  * This should work very similarly to jQuery's events, however it's based off the book version which isn't as
  * robust as jquery's, so there's probably some differences.
@@ -546,7 +546,7 @@ vjs.createEl = function(tagName, properties){
       // The additional check for "role" is because the default method for adding attributes does not
       // add the attribute "role". My guess is because it's not a valid attribute in some namespaces, although
       // browsers handle the attribute just fine. The W3C allows for aria-* attributes to be used in pre-HTML5 docs.
-      // http://www.w3.org/TR/wai-aria-primer/#ariahtml. Using setAttribute gets around this problem.
+      // https://www.w3.org/TR/wai-aria-primer/#ariahtml. Using setAttribute gets around this problem.
 
        if (propName.indexOf('aria-') !== -1 || propName=='role') {
          el.setAttribute(propName, properties[propName]);
@@ -575,7 +575,7 @@ vjs.obj = {};
 
 /**
  * Object.create shim for prototypal inheritance.
- * https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/create
+ * httpss://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/create
  * @param  {Object}   obj Object to use as prototype
  */
  vjs.obj.create = Object.create || function(obj){
@@ -755,7 +755,7 @@ vjs.removeData = function(el){
   if (!id) { return; }
   // Remove all stored data
   // Changed to = null
-  // http://coding.smashingmagazine.com/2012/11/05/writing-fast-memory-efficient-javascript/
+  // https://coding.smashingmagazine.com/2012/11/05/writing-fast-memory-efficient-javascript/
   // vjs.cache[id] = null;
   delete vjs.cache[id];
 
@@ -918,7 +918,7 @@ vjs.getAttributeValues = function(tag){
 
 /**
  * Get the computed style value for an element
- * From http://robertnyman.com/2006/04/24/get-the-rendered-style-of-an-element/
+ * From https://robertnyman.com/2006/04/24/get-the-rendered-style-of-an-element/
  * @param  {Element} el        Element to get style value for
  * @param  {String} strCssRule Style name
  * @return {String}            Style value
@@ -1051,7 +1051,7 @@ vjs.createTimeRange = function(start, end){
 };
 
 /**
- * Simple http request for retrieving external files (e.g. text tracks)
+ * Simple https request for retrieving external files (e.g. text tracks)
  * @param  {String} url           URL of resource
  * @param  {Function=} onSuccess  Success callback
  * @param  {Function=} onError    Error callback
@@ -1059,23 +1059,23 @@ vjs.createTimeRange = function(start, end){
 vjs.get = function(url, onSuccess, onError){
   var local, request;
 
-  if (typeof XMLHttpRequest === 'undefined') {
-    window.XMLHttpRequest = function () {
-      try { return new window.ActiveXObject('Msxml2.XMLHTTP.6.0'); } catch (e) {}
-      try { return new window.ActiveXObject('Msxml2.XMLHTTP.3.0'); } catch (f) {}
-      try { return new window.ActiveXObject('Msxml2.XMLHTTP'); } catch (g) {}
-      throw new Error('This browser does not support XMLHttpRequest.');
+  if (typeof XMLhttpsRequest === 'undefined') {
+    window.XMLhttpsRequest = function () {
+      try { return new window.ActiveXObject('Msxml2.XMLhttps.6.0'); } catch (e) {}
+      try { return new window.ActiveXObject('Msxml2.XMLhttps.3.0'); } catch (f) {}
+      try { return new window.ActiveXObject('Msxml2.XMLhttps'); } catch (g) {}
+      throw new Error('This browser does not support XMLhttpsRequest.');
     };
   }
 
-  request = new XMLHttpRequest();
+  request = new XMLhttpsRequest();
   try {
     request.open('GET', url);
   } catch(e) {
     onError(e);
   }
 
-  local = (url.indexOf('file:') === 0 || (window.location.href.indexOf('file:') === 0 && url.indexOf('http') === -1));
+  local = (url.indexOf('file:') === 0 || (window.location.href.indexOf('file:') === 0 && url.indexOf('https') === -1));
 
   request.onreadystatechange = function() {
     if (request.readyState === 4) {
@@ -1121,14 +1121,14 @@ vjs.setLocalStorage = function(key, value){
 
 /**
  * Get abosolute version of relative URL. Used to tell flash correct URL.
- * http://stackoverflow.com/questions/470832/getting-an-absolute-url-from-a-relative-one-ie6-issue
+ * https://stackoverflow.com/questions/470832/getting-an-absolute-url-from-a-relative-one-ie6-issue
  * @param  {String} url URL to make absolute
  * @return {String}     Absolute URL
  */
 vjs.getAbsoluteURL = function(url){
 
   // Check if absolute URL
-  if (!url.match(/^https?:\/\//)) {
+  if (!url.match(/^httpss?:\/\//)) {
     // Convert to absolute URL. Flash hosted off-site needs an absolute URL.
     url = vjs.createEl('div', {
       innerHTML: '<a href="'+url+'">x</a>'
@@ -1139,7 +1139,7 @@ vjs.getAbsoluteURL = function(url){
 };
 
 // usage: log('inside coolFunc',this,arguments);
-// http://paulirish.com/2009/log-a-lightweight-wrapper-for-consolelog/
+// https://paulirish.com/2009/log-a-lightweight-wrapper-for-consolelog/
 vjs.log = function(){
   vjs.log.history = vjs.log.history || [];   // store logs to an array for reference
   vjs.log.history.push(arguments);
@@ -1149,7 +1149,7 @@ vjs.log = function(){
 };
 
 // Offset Left
-// getBoundingClientRect technique from John Resig http://ejohn.org/blog/getboundingclientrect-is-awesome/
+// getBoundingClientRect technique from John Resig https://ejohn.org/blog/getboundingclientrect-is-awesome/
 vjs.findPosition = function(el) {
     var box, docEl, body, clientLeft, scrollLeft, left, clientTop, scrollTop, top;
 
@@ -1750,7 +1750,7 @@ vjs.Component.prototype.disable = function(){
 /**
  * If a value is provided it will change the width of the player to that value
  * otherwise the width is returned
- * http://dev.w3.org/html5/spec/dimension-attributes.html#attr-dim-height
+ * https://dev.w3.org/html5/spec/dimension-attributes.html#attr-dim-height
  * Video tag width/height only work in pixels. No percents.
  * But allowing limited percents use. e.g. width() will return number+%, not computed width
  * @param  {Number|String=} num   Optional width number
@@ -1790,7 +1790,7 @@ vjs.Component.prototype.dimensions = function(width, height){
  * So we're defaulting to the style.width value and falling back to computedStyle
  * which has the hidden element issue.
  * Info, but probably not an efficient fix:
- * http://www.foliotek.com/devblog/getting-the-width-of-a-hidden-element-with-jquery-using-width/
+ * https://www.foliotek.com/devblog/getting-the-width-of-a-hidden-element-with-jquery-using-width/
  * @param  {String=} widthOrHeight 'width' or 'height'
  * @param  {Number|String=} num           New dimension
  * @param  {Boolean=} skipListeners Skip resize event trigger
@@ -1873,7 +1873,7 @@ vjs.Component.prototype.emitTapEvents = function(){
   noTap = function(){
     couldBeTap = false;
   };
-  // TODO: Listen to the original target. http://youtu.be/DujfpXOKUp8?t=13m8s
+  // TODO: Listen to the original target. https://youtu.be/DujfpXOKUp8?t=13m8s
   this.on('touchmove', noTap);
   this.on('touchleave', noTap);
   this.on('touchcancel', noTap);
@@ -1997,7 +1997,7 @@ vjs.Slider = vjs.Component.extend({
 
     this.player_.on('controlsvisible', vjs.bind(this, this.update));
 
-    // This is actually to fix the volume handle position. http://twitter.com/#!/gerritvanaaken/status/159046254519787520
+    // This is actually to fix the volume handle position. https://twitter.com/#!/gerritvanaaken/status/159046254519787520
     // this.player_.one('timeupdate', vjs.bind(this, this.update));
 
     player.ready(vjs.bind(this, this.update));
@@ -2540,7 +2540,7 @@ vjs.Player.prototype.getTagSettings = function(tag){
 
     for (i=0,j=children.length; i<j; i++) {
       child = children[i];
-      // Change case needed: http://ejohn.org/blog/nodename-case-sensitivity/
+      // Change case needed: https://ejohn.org/blog/nodename-case-sensitivity/
       childName = child.nodeName.toLowerCase();
       if (childName === 'source') {
         options['sources'].push(vjs.getAttributeValues(child));
@@ -2684,7 +2684,7 @@ vjs.Player.prototype.unloadTech = function(){
 };
 
 // There's many issues around changing the size of a Flash (or other plugin) object.
-// First is a plugin reload issue in Firefox that has been around for 11 years: https://bugzilla.mozilla.org/show_bug.cgi?id=90268
+// First is a plugin reload issue in Firefox that has been around for 11 years: httpss://bugzilla.mozilla.org/show_bug.cgi?id=90268
 // Then with the new fullscreen API, Mozilla and webkit browsers will reload the flash object after going to fullscreen.
 // To get around this, we're unloading the tech, caching source and currentTime values, and reloading the tech once the plugin is resized.
 // reloadTech: function(betweenFn){
@@ -2894,7 +2894,7 @@ vjs.Player.prototype.techGet = function(method){
 
 /**
  * Start media playback
- * http://dev.w3.org/html5/spec/video.html#dom-media-play
+ * https://dev.w3.org/html5/spec/video.html#dom-media-play
  * We're triggering the 'play' event here instead of relying on the
  * media element to allow using event.preventDefault() to stop
  * play from happening if desired. Usecase: preroll ads.
@@ -2904,19 +2904,19 @@ vjs.Player.prototype.play = function(){
   return this;
 };
 
-// http://dev.w3.org/html5/spec/video.html#dom-media-pause
+// https://dev.w3.org/html5/spec/video.html#dom-media-pause
 vjs.Player.prototype.pause = function(){
   this.techCall('pause');
   return this;
 };
 
-// http://dev.w3.org/html5/spec/video.html#dom-media-paused
+// https://dev.w3.org/html5/spec/video.html#dom-media-paused
 // The initial state of paused should be true (in Safari it's actually false)
 vjs.Player.prototype.paused = function(){
   return (this.techGet('paused') === false) ? false : true;
 };
 
-// http://dev.w3.org/html5/spec/video.html#dom-media-currenttime
+// https://dev.w3.org/html5/spec/video.html#dom-media-currenttime
 vjs.Player.prototype.currentTime = function(seconds){
   if (seconds !== undefined) {
 
@@ -2936,7 +2936,7 @@ vjs.Player.prototype.currentTime = function(seconds){
   return this.cache_.currentTime = (this.techGet('currentTime') || 0);
 };
 
-// http://dev.w3.org/html5/spec/video.html#dom-media-duration
+// https://dev.w3.org/html5/spec/video.html#dom-media-duration
 // Duration should return NaN if not available. ParseFloat will turn false-ish values to NaN.
 vjs.Player.prototype.duration = function(seconds){
   if (seconds !== undefined) {
@@ -2955,7 +2955,7 @@ vjs.Player.prototype.remainingTime = function(){
   return this.duration() - this.currentTime();
 };
 
-// http://dev.w3.org/html5/spec/video.html#dom-media-buffered
+// https://dev.w3.org/html5/spec/video.html#dom-media-buffered
 // Buffered returns a timerange object.
 // Kind of like an array of portions of the video that have been downloaded.
 // So far no browsers return more than one range (portion)
@@ -2980,7 +2980,7 @@ vjs.Player.prototype.bufferedPercent = function(){
   return (this.duration()) ? this.buffered().end(0) / this.duration() : 0;
 };
 
-// http://dev.w3.org/html5/spec/video.html#dom-media-volume
+// https://dev.w3.org/html5/spec/video.html#dom-media-volume
 vjs.Player.prototype.volume = function(percentAsDecimal){
   var vol;
 
@@ -2997,7 +2997,7 @@ vjs.Player.prototype.volume = function(percentAsDecimal){
   return (isNaN(vol)) ? 1 : vol;
 };
 
-// http://dev.w3.org/html5/spec/video.html#attr-media-muted
+// https://dev.w3.org/html5/spec/video.html#attr-media-muted
 vjs.Player.prototype.muted = function(muted){
   if (muted !== undefined) {
     this.techCall('setMuted', muted);
@@ -3173,7 +3173,7 @@ vjs.Player.prototype.src = function(source){
       this.src([source]);
     }
 
-  // Case: URL String (http://myvideo...)
+  // Case: URL String (https://myvideo...)
   } else {
     // Cache for getting last set source
     this.cache_.src = source;
@@ -3196,13 +3196,13 @@ vjs.Player.prototype.src = function(source){
 };
 
 // Begin loading the src data
-// http://dev.w3.org/html5/spec/video.html#dom-media-load
+// https://dev.w3.org/html5/spec/video.html#dom-media-load
 vjs.Player.prototype.load = function(){
   this.techCall('load');
   return this;
 };
 
-// http://dev.w3.org/html5/spec/video.html#dom-media-currentsrc
+// https://dev.w3.org/html5/spec/video.html#dom-media-currentsrc
 vjs.Player.prototype.currentSrc = function(){
   return this.techGet('currentSrc') || this.cache_.src || '';
 };
@@ -3353,7 +3353,7 @@ vjs.Player.prototype.userActive = function(bool){
         // this happens in fullscreen when we really need to hide the cursor.
         //
         // When this gets resolved in ALL browsers it can be removed
-        // https://code.google.com/p/chromium/issues/detail?id=103041
+        // httpss://code.google.com/p/chromium/issues/detail?id=103041
         this.tech.one('mousemove', function(e){
           e.stopPropagation();
           e.preventDefault();
@@ -3414,7 +3414,7 @@ vjs.Player.prototype.listenForUserActivity = function(){
   // the mousemove/touchmove function itself, to prevent performance degradation.
   // `this.reportUserActivity` simply sets this.userActivity_ to true, which
   // then gets picked up by this loop
-  // http://ejohn.org/blog/learning-from-twitter/
+  // https://ejohn.org/blog/learning-from-twitter/
   activityCheck = setInterval(vjs.bind(this, function() {
     // Check to see if mouse/touch activity has happened
     if (this.userActivity_) {
@@ -3478,9 +3478,9 @@ vjs.Player.prototype.listenForUserActivity = function(){
   requestFS = {};
 
   // Current W3C Spec
-  // http://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html#api
-  // Mozilla Draft: https://wiki.mozilla.org/Gecko:FullScreenAPI#fullscreenchange_event
-  // New: https://dvcs.w3.org/hg/fullscreen/raw-file/529a67b8d9f3/Overview.html
+  // https://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html#api
+  // Mozilla Draft: httpss://wiki.mozilla.org/Gecko:FullScreenAPI#fullscreenchange_event
+  // New: httpss://dvcs.w3.org/hg/fullscreen/raw-file/529a67b8d9f3/Overview.html
   if (div.cancelFullscreen !== undefined) {
     requestFS.requestFn = 'requestFullscreen';
     requestFS.cancelFn = 'exitFullscreen';
@@ -4261,7 +4261,7 @@ vjs.LoadingSpinner = vjs.Component.extend({
     player.on('error', vjs.bind(this, this.show));
 
     // Not showing spinner on stalled any more. Browsers may stall and then not trigger any events that would remove the spinner.
-    // Checked in Chrome 16 and Safari 5.1.2. http://help.videojs.com/discussions/problems/883-why-is-the-download-progress-showing
+    // Checked in Chrome 16 and Safari 5.1.2. https://help.videojs.com/discussions/problems/883-why-is-the-download-progress-showing
     // player.on('stalled', vjs.bind(this, this.show));
 
     player.on('waiting', vjs.bind(this, this.show));
@@ -4361,7 +4361,7 @@ vjs.MediaTechController.prototype.addControlsListeners = function(){
 
   // Some browsers (Chrome & IE) don't trigger a click on a flash swf, but do
   // trigger mousedown/up.
-  // http://stackoverflow.com/questions/1444562/javascript-onclick-event-over-flash-object
+  // https://stackoverflow.com/questions/1444562/javascript-onclick-event-over-flash-object
   // Any touch events are set to block the mousedown event from happening
   this.on('mousedown', this.onClick);
 
@@ -4721,7 +4721,7 @@ vjs.Html5.isSupported = function(){
 
 vjs.Html5.canPlaySource = function(srcObj){
   // IE9 on Windows 7 without MediaPlayer throws an error here
-  // https://github.com/videojs/video.js/issues/519
+  // httpss://github.com/videojs/video.js/issues/519
   try {
     return !!vjs.TEST_VID.canPlayType(srcObj.type);
   } catch(e) {
@@ -4752,7 +4752,7 @@ if (vjs.IS_OLD_ANDROID) {
 }
 /**
  * @fileoverview VideoJS-SWF - Custom Flash Player with HTML5-ish API
- * https://github.com/zencoder/video-js-swf
+ * httpss://github.com/zencoder/video-js-swf
  * Not using setupTriggers. Using global onEvent func to distribute events
  */
 
@@ -4841,7 +4841,7 @@ vjs.Flash = vjs.MediaTechController.extend({
 
     // Flash iFrame Mode
     // In web browsers there are multiple instances where changing the parent element or visibility of a plugin causes the plugin to reload.
-    // - Firefox just about always. https://bugzilla.mozilla.org/show_bug.cgi?id=90268 (might be fixed by version 13)
+    // - Firefox just about always. httpss://bugzilla.mozilla.org/show_bug.cgi?id=90268 (might be fixed by version 13)
     // - Webkit when hiding the plugin
     // - Webkit and Firefox when using requestFullScreen on a parent element
     // Loading the flash plugin into a dynamically generated iFrame gets around most of these issues.
@@ -4850,9 +4850,9 @@ vjs.Flash = vjs.MediaTechController.extend({
     // There's on particularly annoying issue with this method which is that Firefox throws a security error on an offsite Flash object loaded into a dynamically created iFrame.
     // Even though the iframe was inserted into a page on the web, Firefox + Flash considers it a local app trying to access an internet file.
     // I tried mulitple ways of setting the iframe src attribute but couldn't find a src that worked well. Tried a real/fake source, in/out of domain.
-    // Also tried a method from stackoverflow that caused a security error in all browsers. http://stackoverflow.com/questions/2486901/how-to-set-document-domain-for-a-dynamically-generated-iframe
+    // Also tried a method from stackoverflow that caused a security error in all browsers. https://stackoverflow.com/questions/2486901/how-to-set-document-domain-for-a-dynamically-generated-iframe
     // In the end the solution I found to work was setting the iframe window.location.href right before doing a document.write of the Flash object.
-    // The only downside of this it seems to trigger another http request to the original page (no matter what's put in the href). Not sure why that is.
+    // The only downside of this it seems to trigger another https request to the original page (no matter what's put in the href). Not sure why that is.
 
     // NOTE (2012-01-29): Cannot get Firefox to load the remote hosted SWF into a dynamically created iFrame
     // Firefox 9 throws a security error, unleess you call location.href right before doc.write.
@@ -5328,7 +5328,7 @@ vjs.Player.prototype.textTracks_;
 
 /**
  * Get an array of associated text tracks. captions, subtitles, chapters, descriptions
- * http://www.w3.org/html/wg/drafts/html/master/embedded-content-0.html#dom-media-texttracks
+ * https://www.w3.org/html/wg/drafts/html/master/embedded-content-0.html#dom-media-texttracks
  * @return {Array}           Array of track objects
  */
 vjs.Player.prototype.textTracks = function(){
@@ -5339,7 +5339,7 @@ vjs.Player.prototype.textTracks = function(){
 /**
  * Add a text track
  * In addition to the W3C settings we allow adding additional info through options.
- * http://www.w3.org/html/wg/drafts/html/master/embedded-content-0.html#dom-media-addtexttrack
+ * https://www.w3.org/html/wg/drafts/html/master/embedded-content-0.html#dom-media-addtexttrack
  * @param {String}  kind        Captions, subtitles, chapters, descriptions, or metadata
  * @param {String=} label       Optional label
  * @param {String=} language    Optional language
@@ -6326,7 +6326,7 @@ vjs.obj.merge(vjs.ControlBar.prototype.options_['children'], {
 /**
  * Javascript JSON implementation
  * (Parse Method Only)
- * https://github.com/douglascrockford/JSON-js/blob/master/json2.js
+ * httpss://github.com/douglascrockford/JSON-js/blob/master/json2.js
  * Only using for parse method when parsing data-setup attribute JSON.
  * @type {Object}
  * @suppress {undefinedVars}

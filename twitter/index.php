@@ -13,8 +13,8 @@ to introduce compatibility with Twitter's v1.1 API.
 Version: 1.4
 Created: 2013.02.20
 
-https://github.com/seaofclouds/tweet
-https://github.com/themattharris/tmhOAuth
+httpss://github.com/seaofclouds/tweet
+httpss://github.com/themattharris/tmhOAuth
 
  */
 

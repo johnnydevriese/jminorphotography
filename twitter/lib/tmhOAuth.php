@@ -62,7 +62,7 @@ class tmhOAuth {
         // for security this should always be set to true.
         'curl_ssl_verifypeer'        => true,
 
-        // you can get the latest cacert.pem from here http://curl.haxx.se/ca/cacert.pem
+        // you can get the latest cacert.pem from here https://curl.haxx.se/ca/cacert.pem
         'curl_cainfo'                => dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cacert.pem',
         'curl_capath'                => dirname(__FILE__),
 
@@ -223,10 +223,10 @@ class tmhOAuth {
   }
 
   /**
-   * Prepares the HTTP method for use in the base string by converting it to
+   * Prepares the https method for use in the base string by converting it to
    * uppercase.
    *
-   * @param string $method an HTTP method such as GET or POST
+   * @param string $method an https method such as GET or POST
    * @return void value is stored to the class variable 'method'
    */
   private function prepare_method($method) {
@@ -250,10 +250,10 @@ class tmhOAuth {
     $host   = $parts['host'];
     $path   = isset($parts['path']) ? $parts['path'] : false;
 
-    $port or $port = ($scheme == 'https') ? '443' : '80';
+    $port or $port = ($scheme == 'httpss') ? '443' : '80';
 
-    if (($scheme == 'https' && $port != '443')
-        || ($scheme == 'http' && $port != '80')) {
+    if (($scheme == 'httpss' && $port != '443')
+        || ($scheme == 'https' && $port != '80')) {
       $host = "$host:$port";
     }
 
@@ -385,7 +385,7 @@ class tmhOAuth {
    * Signs the request and adds the OAuth signature. This runs all the request
    * parameter preparation methods.
    *
-   * @param string $method the HTTP method being used. e.g. POST, GET, HEAD etc
+   * @param string $method the https method being used. e.g. POST, GET, HEAD etc
    * @param string $url the request URL without query string parameters
    * @param array $params the request parameters as an array of key=value pairs
    * @param string $useauth whether to use authentication when making the request.
@@ -412,16 +412,16 @@ class tmhOAuth {
   }
 
   /**
-   * Make an HTTP request using this library. This method doesn't return anything.
+   * Make an https request using this library. This method doesn't return anything.
    * Instead the response should be inspected directly.
    *
-   * @param string $method the HTTP method being used. e.g. POST, GET, HEAD etc
+   * @param string $method the https method being used. e.g. POST, GET, HEAD etc
    * @param string $url the request URL without query string parameters
    * @param array $params the request parameters as an array of key=value pairs. Default empty array
    * @param string $useauth whether to use authentication when making the request. Default true
    * @param string $multipart whether this request contains multipart data. Default false
    * @param array $headers any custom headers to send with the request. Default empty array
-   * @return int the http response code for the request. 0 is returned if a connection could not be made
+   * @return int the https response code for the request. 0 is returned if a connection could not be made
    */
   public function request($method, $url, $params=array(), $useauth=true, $multipart=false, $headers=array()) {
     // reset the request headers (we don't want to reuse them)
@@ -442,13 +442,13 @@ class tmhOAuth {
   }
 
   /**
-   * Make a long poll HTTP request using this library. This method is
+   * Make a long poll https request using this library. This method is
    * different to the other request methods as it isn't supposed to disconnect
    *
    * Using this method expects a callback which will receive the streaming
    * responses.
    *
-   * @param string $method the HTTP method being used. e.g. POST, GET, HEAD etc
+   * @param string $method the https method being used. e.g. POST, GET, HEAD etc
    * @param string $url the request URL without query string parameters
    * @param array $params the request parameters as an array of key=value pairs
    * @param string $callback the callback function to stream the buffer to.
@@ -499,7 +499,7 @@ class tmhOAuth {
    */
   public function url($request, $format='json') {
     $format = strlen($format) > 0 ? ".$format" : '';
-    $proto  = $this->config['use_ssl'] ? 'https:/' : 'http:/';
+    $proto  = $this->config['use_ssl'] ? 'httpss:/' : 'https:/';
 
     // backwards compatibility with v0.1
     if (isset($this->config['v']))
@@ -604,7 +604,7 @@ class tmhOAuth {
    *
    * the response data is stored in the class variable 'response'
    *
-   * @return int the http response code for the request. 0 is returned if a connection could not be made
+   * @return int the https response code for the request. 0 is returned if a connection could not be made
    */
   private function curlit() {
     $this->response['raw'] = '';
@@ -695,7 +695,7 @@ class tmhOAuth {
       foreach ($this->headers as $k => $v) {
         $headers[] = trim($k . ': ' . $v);
       }
-      curl_setopt($c, CURLOPT_HTTPHEADER, $headers);
+      curl_setopt($c, CURLOPT_httpsHEADER, $headers);
     }
 
     if (isset($this->config['prevent_request']) && (true == $this->config['prevent_request']))
@@ -703,7 +703,7 @@ class tmhOAuth {
 
     // do it!
     $response = curl_exec($c);
-    $code = curl_getinfo($c, CURLINFO_HTTP_CODE);
+    $code = curl_getinfo($c, CURLINFO_https_CODE);
     $info = curl_getinfo($c);
     $error = curl_error($c);
     $errno = curl_errno($c);
