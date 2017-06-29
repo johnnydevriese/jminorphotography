@@ -53,7 +53,7 @@ $address = "jminorphotography@gmail.com";
 // Configuration option.
 // i.e. The standard subject will appear as, "You've been contacted by John Doe."
 
-// Example, $e_subject = '$name . ' has contacted you via Your Website.';
+// Example, $e_subject = '$name . ' has contacted you via Your jminorphotography.';
 
 $e_subject = 'You\'ve been contacted by ' . $name . '.';
 

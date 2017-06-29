@@ -61,19 +61,19 @@ class tmhUtilities {
     // prepare the entities
     foreach ($tweet['entities'] as $type => $things) {
       foreach ($things as $entity => $value) {
-        $tweet_link = "<a href=\"httpss://twitter.com/{$tweet['user']['screen_name']}/statuses/{$tweet['id']}\"{$target}>{$tweet['created_at']}</a>";
+        $tweet_link = "<a href=\"https://twitter.com/{$tweet['user']['screen_name']}/statuses/{$tweet['id']}\"{$target}>{$tweet['created_at']}</a>";
 
         switch ($type) {
           case 'hashtags':
-            $href = "<a href=\"httpss://twitter.com/search?q=%23{$value['text']}\"{$target}>#{$value['text']}</a>";
+            $href = "<a href=\"https://twitter.com/search?q=%23{$value['text']}\"{$target}>#{$value['text']}</a>";
             break;
           case 'user_mentions':
-            $href = "@<a href=\"httpss://twitter.com/{$value['screen_name']}\" title=\"{$value['name']}\"{$target}>{$value['screen_name']}</a>";
+            $href = "@<a href=\"https://twitter.com/{$value['screen_name']}\" title=\"{$value['name']}\"{$target}>{$value['screen_name']}</a>";
             break;
           case 'urls':
           case 'media':
             $url = empty($value['expanded_url']) ? $value['url'] : $value['expanded_url'];
-            $display = isset($value['display_url']) ? $value['display_url'] : str_replace('https://', '', $url);
+            $display = isset($value['display_url']) ? $value['display_url'] : str_replace('http://', '', $url);
             // Not all pages are served in UTF-8 so you may need to do this ...
             $display = urldecode(str_replace('%E2%80%A6', '&hellip;', urlencode($display)));
             $href = "<a href=\"{$value['url']}\"{$target}>{$display}</a>";
@@ -110,11 +110,11 @@ class tmhUtilities {
    * @return string the current URL
    */
   public static function php_self($dropqs=true) {
-    $protocol = 'https';
-    if (isset($_SERVER['httpsS']) && strtolower($_SERVER['httpsS']) == 'on') {
-      $protocol = 'httpss';
+    $protocol = 'http';
+    if (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on') {
+      $protocol = 'https';
     } elseif (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == '443')) {
-      $protocol = 'httpss';
+      $protocol = 'https';
     }
 
     $url = sprintf('%s://%s%s',
@@ -131,10 +131,10 @@ class tmhUtilities {
     $path = @$parts['path'];
     $qs   = @$parts['query'];
 
-    $port or $port = ($scheme == 'httpss') ? '443' : '80';
+    $port or $port = ($scheme == 'https') ? '443' : '80';
 
-    if (($scheme == 'httpss' && $port != '443')
-        || ($scheme == 'https' && $port != '80')) {
+    if (($scheme == 'https' && $port != '443')
+        || ($scheme == 'http' && $port != '80')) {
       $host = "$host:$port";
     }
     $url = "$scheme://$host$path";
@@ -168,7 +168,7 @@ class tmhUtilities {
   }
 
   /**
-   * Make an https request using this library. This method is different to 'request'
+   * Make an HTTP request using this library. This method is different to 'request'
    * because on a 401 error it will retry the request.
    *
    * When a 401 error is returned it is possible the timestamp of the client is
@@ -179,7 +179,7 @@ class tmhUtilities {
    * This method doesn't return anything. Instead the response should be
    * inspected directly.
    *
-   * @param string $method the https method being used. e.g. POST, GET, HEAD etc
+   * @param string $method the HTTP method being used. e.g. POST, GET, HEAD etc
    * @param string $url the request URL without query string parameters
    * @param array $params the request parameters as an array of key=value pairs
    * @param string $useauth whether to use authentication when making the request. Default true.
@@ -228,7 +228,7 @@ class tmhUtilities {
    *
    * @param  boolean $stars Wether or not to output stars for given characters
    * @return string
-   * @url https://www.dasprids.de/blog/2008/08/22/getting-a-password-hidden-from-stdin-with-php-cli
+   * @url http://www.dasprids.de/blog/2008/08/22/getting-a-password-hidden-from-stdin-with-php-cli
    */
   public static function read_password($prompt, $stars=false) {
     echo $prompt;

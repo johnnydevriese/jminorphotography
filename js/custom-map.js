@@ -21,7 +21,7 @@ jQuery(document).ready(function() {
 	
 	var contentString = '<div class="map-tooltip">'+
 		'<h6>Patti Headquarters</h6>'+
-		'<p>Now that you visited our website, how about <br/> checking out our office too?</p>'+
+		'<p>Now that you visited our jminorphotography, how about <br/> checking out our office too?</p>'+
 		'</div>';
 	var infowindow = new google.maps.InfoWindow({
 		content: contentString
