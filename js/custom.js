@@ -464,7 +464,7 @@ $(document).ready(function() {
 	
 	// Twitter
 	function twitterSharer(){
-		window.open( 'http://twitter.com/intent/tweet?text='+jQuery(".title-content h2").text() +' '+window.location, 
+		window.open( 'https://twitter.com/intent/tweet?text='+jQuery(".title-content h2").text() +' '+window.location,
 			"twitterWindow", 
 			"width=650,height=350" );
 		return false;
@@ -482,7 +482,7 @@ $(document).ready(function() {
 	// Pinterest
 
 	function pinterestSharer(){
-		window.open( 'http://pinterest.com/pin/create/bookmarklet/?media='+ jQuery('.begin-content img').first().attr('src') + '&description='+jQuery('.title-content h2').text()+' '+encodeURIComponent(location.href), 
+		window.open( 'https://pinterest.com/pin/create/bookmarklet/?media='+ jQuery('.begin-content img').first().attr('src') + '&description='+jQuery('.title-content h2').text()+' '+encodeURIComponent(location.href),
 			'pinterestWindow', 
 			'width=750,height=430, resizable=1');
 		return false;
@@ -502,7 +502,7 @@ $(document).ready(function() {
 	// Delicious
 
 	function deliciousSharer(){
-		window.open( 'http://delicious.com/save?url='+encodeURIComponent(location.href)+'?title='+jQuery(".title-content h2").text(), 
+		window.open( 'https://delicious.com/save?url='+encodeURIComponent(location.href)+'?title='+jQuery(".title-content h2").text(),
 			'deliciousWindow', 
 			'width=550,height=550, resizable=1');
 		return false;
@@ -511,7 +511,7 @@ $(document).ready(function() {
 	// Linkedin
 
 	function linkedinSharer(){
-		window.open( 'http://www.linkedin.com/shareArticle?mini=true&url='+encodeURIComponent(location.href)+'$title='+jQuery(".title-content h2").text(), 
+		window.open( 'https://www.linkedin.com/shareArticle?mini=true&url='+encodeURIComponent(location.href)+'$title='+jQuery(".title-content h2").text(),
 			'linkedinWindow', 
 			'width=650,height=450, resizable=1');
 		return false;
